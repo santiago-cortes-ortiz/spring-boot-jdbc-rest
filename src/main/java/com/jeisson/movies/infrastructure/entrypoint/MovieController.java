@@ -38,8 +38,18 @@ public class MovieController {
     }
 
     @GetMapping("{id}")
-    public Movie getMovieId(@PathVariable("id") Integer id) {
-        return movieService.getMovie(id);
+    public ResponseEntity<ResponseData> getMovieId(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(
+                ResponseData.builder()
+                        .timestamp(LocalDateTime.now(clock))
+                        .status(HttpStatus.OK.toString())
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Movie retrieved successfully")
+                        .data(Map.of(
+                                "movie", movieService.getMovie(id)
+                        ))
+                        .build()
+        );
     }
 
     @PostMapping
