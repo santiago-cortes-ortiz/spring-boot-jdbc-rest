@@ -53,14 +53,32 @@ public class MovieController {
     }
 
     @PostMapping
-    public void addMovie(@RequestBody Movie movie) {
+    public ResponseEntity<ResponseData> addMovie(@RequestBody Movie movie) {
         movieService.addNewMovie(movie);
+        return new ResponseEntity<>(ResponseData.builder()
+                .timestamp(LocalDateTime.now(clock))
+                .status(HttpStatus.CREATED.toString())
+                .statusCode(HttpStatus.CREATED.value())
+                .message("Movie created successfully")
+                .data(Map.of(
+                        "movie", "created"
+                ))
+                .build(), HttpStatus.CREATED);
     }
 
     @DeleteMapping("{id}")
-    public void deleteMovie(@PathVariable("id") Integer id) {
+    public ResponseEntity<ResponseData> deleteMovie(@PathVariable("id") Integer id) {
         movieService.deleteMovie(id);
-    }
+        return new ResponseEntity<>(ResponseData.builder()
+                .timestamp(LocalDateTime.now(clock))
+                .status(HttpStatus.OK.toString())
+                .statusCode(HttpStatus.OK.value())
+                .message("Movie deleted successfully")
+                .data(Map.of(
+                        "movie", "deleted"
+                ))
+                .build(), HttpStatus.OK);
 
+    }
 }
 
