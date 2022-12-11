@@ -10,10 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
 public class MovieRepositoryImpl implements MovieRepository {
-
-    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Movie> selectMovies() {
