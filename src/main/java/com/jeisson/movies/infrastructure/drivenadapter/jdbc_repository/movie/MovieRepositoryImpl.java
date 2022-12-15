@@ -2,6 +2,7 @@ package com.jeisson.movies.infrastructure.drivenadapter.jdbc_repository.movie;
 
 import com.jeisson.movies.domain.model.movie.Movie;
 import com.jeisson.movies.domain.model.movie.gateways.MovieRepository;
+import com.jeisson.movies.infrastructure.drivenadapter.jdbc_repository.helper.MovieRowMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,12 +18,13 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public List<Movie> selectMovies() {
-        return null;
+        var sql = "SELECT * FROM movie";
+        return jdbcTemplate.query(sql, new MovieRowMapper());
     }
 
     @Override
     public int insertMovie(Movie movie) {
-        String sql = """
+        var sql = """
                 INSERT INTO movie(name,release_date) VALUES(?,?)
                     """;
         return jdbcTemplate.update(
