@@ -10,7 +10,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class MovieRepositoryImpl implements MovieRepository {
+
+    private final JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Movie> selectMovies() {
@@ -19,7 +22,13 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public int insertMovie(Movie movie) {
-        return 0;
+        String sql = """
+                INSERT INTO movie(name,release_date) VALUES(?,?)
+                    """;
+        return jdbcTemplate.update(
+                sql,
+                movie.name(), movie.releaseDate()
+        );
     }
 
     @Override
