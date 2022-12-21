@@ -35,7 +35,8 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public int deleteMovie(int id) {
-        return 0;
+        var sql = "DELETE FROM movie WHERE id = ?";
+        return jdbcTemplate.update(sql, id);
     }
 
     @Override
