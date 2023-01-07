@@ -41,6 +41,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public Optional<Movie> selectMovieById(int id) {
-        return Optional.empty();
+        var sql = "SELECT * FROM movie WHERE id = ?";
+        return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new MovieRowMapper(), id));
     }
 }

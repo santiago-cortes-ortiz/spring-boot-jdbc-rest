@@ -37,6 +37,9 @@ public class MovieService {
     }
 
     public Movie getMovie(int id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("id must be greater than 0");
+        }
         return movieRepository.selectMovieById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Movie with id %s not found", id)));
     }
