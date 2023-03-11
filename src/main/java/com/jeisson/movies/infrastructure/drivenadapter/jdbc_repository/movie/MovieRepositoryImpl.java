@@ -42,10 +42,6 @@ public class MovieRepositoryImpl implements MovieRepository {
     @Override
     public Optional<Movie> selectMovieById(int id) {
         var sql = "SELECT * FROM movie WHERE id = ?";
-<<<<<<< HEAD
-        return Optional.ofNullable(jdbcTemplate.queryForObject(sql,new MovieRowMapper(), id));
-=======
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new MovieRowMapper(), id));
->>>>>>> d4641ecb26b2824725f9019d2ecdcabf251d2a2d
     }
 }
